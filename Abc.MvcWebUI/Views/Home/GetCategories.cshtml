@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Abc.MvcWebUI.Entity.Category>
+@{ 
+    var selectedCategory = Url.RequestContext.RouteData.Values["id"];
+}
+
+    <ul class="list-group">
+        
+            <a href="/Home/List" class="list-group-item"><i class="fas fa-angle-double-right mr-2"></i>Tüm Kategoriler</a>
+       
+        @foreach (var item in Model)
+        {
+            if (selectedCategory != null)
+            {
+                if (item.Id == int.Parse(selectedCategory.ToString())) // Objeyi(selectedCategory) int'e çevirebilmek için öncelikle string'e(selectedCategory.ToString()) çevirmemiz gerekmektedir.
+                {
+                    // Seçilen kategori ile route id'si birbirine eşit
+
+                        <a href="/Home/List/@item.Id" class="list-group-item active"><i class="fas fa-angle-double-right mr-2"></i>@item.Name</a>
+                   
+                }
+                else
+                {
+                    
+                        <a href="/Home/List/@item.Id" class="list-group-item"><i class="fas fa-angle-double-right mr-2"></i>@item.Name</a>
+                    
+                }
+            }
+            else
+            {
+                
+                    <a href="/Home/List/@item.Id" class="list-group-item"><i class="fas fa-angle-double-right mr-2"></i>@item.Name</a>
+               
+            }
+        }
+    </ul>
